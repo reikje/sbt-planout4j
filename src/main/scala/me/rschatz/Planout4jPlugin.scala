@@ -25,11 +25,6 @@ object Planout4jPlugin extends AutoPlugin {
       "directory containing planout4j yaml files"
     )
 
-    val planout4jYamlSources = SettingKey[Seq[File]](
-      "planout4j-yaml-sources",
-      "planout4j yaml source files to compile"
-    )
-
     val planoutOutputFolder = SettingKey[File](
       "planout-output-folder",
       "output folder for generated planout language files (defaults to resourceManaged)"
@@ -45,11 +40,12 @@ object Planout4jPlugin extends AutoPlugin {
 
   def planout4jSettings(conf: Configuration): Seq[Setting[_]] = inConfig(conf)(Seq(
     planout4jYamlSourceFolder <<= sourceDirectory { _ / "planout4j" },
-    planout4jYamlSources <<= planout4jYamlSourceFolder { srcDir => (srcDir ** "*.yaml").get },
     planoutOutputFolder <<= resourceManaged { _ / "planout" },
-    planout4jGen <<= (streams, planout4jYamlSources, planoutOutputFolder).map {
-      (out, yamlFiles, outputDir) =>
+    planout4jGen <<= (streams, planout4jYamlSourceFolder, planoutOutputFolder).map {
+      (out, sourceFolder, outputDir) =>
         outputDir.mkdirs()
+
+        val yamlFiles = (sourceFolder ** "*.yaml").get
 
         if (yamlFiles.nonEmpty) {
           out.log.info(s"Generating planout language files for ${yamlFiles.mkString(", ")} ...")
@@ -72,6 +68,8 @@ object Planout4jPlugin extends AutoPlugin {
               out.log.info(s"Writing $jsonFile")
               sbt.IO.write(jsonFile, json)
           }
+        } else {
+          out.log.info(s"Not finding any yaml files in $sourceFolder ...")
         }
         (outputDir ** "*.json").get
     },
