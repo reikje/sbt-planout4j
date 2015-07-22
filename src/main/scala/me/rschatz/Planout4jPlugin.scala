@@ -17,6 +17,8 @@ import sbt._
 object Planout4jPlugin extends AutoPlugin {
   override def trigger = allRequirements
 
+  override def requires: Plugins = plugins.JvmPlugin
+
   object autoImport {
     val planout4jYamlSourceFolder = SettingKey[File](
       "planout4j-yaml-source-folder",
