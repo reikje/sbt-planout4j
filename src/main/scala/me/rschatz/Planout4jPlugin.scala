@@ -17,25 +17,29 @@ import sbt._
 object Planout4jPlugin extends AutoPlugin {
   override def trigger = allRequirements
 
-  val planout4jYamlSourceFolder = SettingKey[File](
-    "planout4j-yaml-source-folder",
-    "directory containing planout4j yaml files"
-  )
+  object autoImport {
+    val planout4jYamlSourceFolder = SettingKey[File](
+      "planout4j-yaml-source-folder",
+      "directory containing planout4j yaml files"
+    )
 
-  val planout4jYamlSources = SettingKey[Seq[File]](
-    "planout4j-yaml-sources",
-    "planout4j yaml source files to compile"
-  )
+    val planout4jYamlSources = SettingKey[Seq[File]](
+      "planout4j-yaml-sources",
+      "planout4j yaml source files to compile"
+    )
 
-  val planoutOutputFolder = SettingKey[File](
-    "planout-output-folder",
-    "output folder for generated planout language files (defaults to resourceManaged)"
-  )
+    val planoutOutputFolder = SettingKey[File](
+      "planout-output-folder",
+      "output folder for generated planout language files (defaults to resourceManaged)"
+    )
 
-  val planout4jGen = TaskKey[Seq[File]](
-    "planout4j-gen",
-    "generate planout language files from planout4j yaml files using Plaout4j compiler"
-  )
+    val planout4jGen = TaskKey[Seq[File]](
+      "planout4j-gen",
+      "generate planout language files from planout4j yaml files using Plaout4j compiler"
+    )
+  }
+
+  import autoImport._
 
   def planout4jSettings(conf: Configuration): Seq[Setting[_]] = inConfig(conf)(Seq(
     planout4jYamlSourceFolder <<= sourceDirectory { _ / "planout4j" },
@@ -69,7 +73,7 @@ object Planout4jPlugin extends AutoPlugin {
         }
         (outputDir ** "*.json").get
     },
-    resourceGenerators <+= planout4jGen
+    resourceGenerators in Compile += planout4jGen.taskValue
   ))
 
   override def projectSettings = planout4jSettings(Compile)
