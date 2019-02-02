@@ -9,7 +9,7 @@ import sbt.Keys._
 import sbt._
 
 /**
- * A SBT plug-in which compiles [[https://github.com/Glassdoor/planout4j Planout4j]] yaml files to
+ * An sbt plug-in which compiles [[https://github.com/Glassdoor/planout4j Planout4j]] yaml files to
  * [[https://facebook.github.io/planout/docs/planout-language.html Planout language files]].
  *
  * @author rschatz
