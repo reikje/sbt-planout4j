@@ -16,6 +16,7 @@ lazy val root = (project in file(".")).
   settings(commonSettings ++ bintrayPublishSettings: _*).
   settings(
     sbtPlugin := true,
+    crossSbtVersions := Vector("0.13.18", "1.2.8"),
     name := "sbt-planout4j",
     description := "Compiles Planout4j yaml files to Planout language files",
     licenses += ("Apache-2.0", url("https://www.apache.org/licenses/LICENSE-2.0.html")),
