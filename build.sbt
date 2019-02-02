@@ -6,9 +6,9 @@ lazy val commonSettings = Seq(
   version in ThisBuild := "0.0.1",
   organization in ThisBuild := "me.rschatz",
   libraryDependencies in ThisBuild ++= Seq(
-    "com.glassdoor.planout4j" % "planout4j-core" % "1.1",
-    "com.glassdoor.planout4j" % "planout4j-compiler" % "1.1",
-    "ch.qos.logback" % "logback-classic" % "1.1.3"
+    "com.glassdoor.planout4j" % "planout4j-core" % "1.2",
+    "com.glassdoor.planout4j" % "planout4j-compiler" % "1.2",
+    "ch.qos.logback" % "logback-classic" % "1.2.3"
   )
 )
 
