@@ -9,7 +9,7 @@ import sbt.Keys._
 import sbt._
 
 /**
- * A SBT plug-in which compiles [[https://github.com/Glassdoor/planout4j Planout4j]] yaml files to
+ * An sbt plug-in which compiles [[https://github.com/Glassdoor/planout4j Planout4j]] yaml files to
  * [[https://facebook.github.io/planout/docs/planout-language.html Planout language files]].
  *
  * @author rschatz
@@ -39,10 +39,13 @@ object Planout4jPlugin extends AutoPlugin {
   import autoImport._
 
   def planout4jSettings(conf: Configuration): Seq[Setting[_]] = inConfig(conf)(Seq(
-    planout4jYamlSourceFolder <<= sourceDirectory { _ / "planout4j" },
-    planoutOutputFolder <<= resourceManaged { _ / "planout" },
-    planout4jGen <<= (streams, planout4jYamlSourceFolder, planoutOutputFolder).map {
-      (out, sourceFolder, outputDir) =>
+    planout4jYamlSourceFolder := sourceDirectory { _ / "planout4j" }.value,
+    planoutOutputFolder := resourceManaged { _ / "planout" }.value,
+    planout4jGen := {
+        val out = streams.value
+        val sourceFolder = planout4jYamlSourceFolder.value
+        val outputDir = planoutOutputFolder.value
+
         outputDir.mkdirs()
 
         val yamlFiles = (sourceFolder ** "*.yaml").get
