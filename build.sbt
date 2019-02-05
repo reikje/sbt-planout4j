@@ -1,7 +1,5 @@
 import Keys._
 
-import bintray.Keys._
-
 lazy val commonSettings = Seq(
   version in ThisBuild := "0.0.2",
   organization in ThisBuild := "me.rschatz",
@@ -13,7 +11,7 @@ lazy val commonSettings = Seq(
 )
 
 lazy val root = (project in file(".")).
-  settings(commonSettings ++ bintrayPublishSettings: _*).
+  settings(commonSettings).
   settings(
     sbtPlugin := true,
     crossSbtVersions := Vector("0.13.18", "1.2.8"),
@@ -21,6 +19,6 @@ lazy val root = (project in file(".")).
     description := "Compiles Planout4j yaml files to Planout language files",
     licenses += ("Apache-2.0", url("https://www.apache.org/licenses/LICENSE-2.0.html")),
     publishMavenStyle := false,
-    repository in bintray := "sbt-plugins",
+    bintrayRepository := "sbt-plugins",
     bintrayOrganization in bintray := None
   )
