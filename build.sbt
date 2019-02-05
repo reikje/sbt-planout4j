@@ -3,7 +3,7 @@ import Keys._
 import bintray.Keys._
 
 lazy val commonSettings = Seq(
-  version in ThisBuild := "0.0.1",
+  version in ThisBuild := "0.0.2",
   organization in ThisBuild := "me.rschatz",
   libraryDependencies in ThisBuild ++= Seq(
     "com.glassdoor.planout4j" % "planout4j-core" % "1.2",
