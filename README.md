@@ -7,7 +7,7 @@ An sbt plug-in which compiles [Planout4j](https://github.com/Glassdoor/planout4j
 
 Add the plugin to your sbt build.
 
-    addSbtPlugin("me.rschatz" % "sbt-planout4j" % "0.0.1")
+    addSbtPlugin("me.rschatz" % "sbt-planout4j" % "0.0.2")
     
 ## Usage
 
